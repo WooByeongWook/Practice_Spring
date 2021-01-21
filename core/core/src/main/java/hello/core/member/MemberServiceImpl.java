@@ -2,7 +2,11 @@ package hello.core.member;
 
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository(); //둘다의존해서 DIP를 위배한다고 판단.
+    private final MemberRepository memberRepository;
+
+    public MemberServiceImpl(MemberRepository memberRepository) {   //DIP를 지키기위해 생성자 생성.
+        this.memberRepository = memberRepository;
+    }
 
     @Override
     public void join(Member member) {

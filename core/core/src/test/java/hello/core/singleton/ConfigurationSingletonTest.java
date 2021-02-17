@@ -33,4 +33,14 @@ public class ConfigurationSingletonTest {
         assertThat(memberService.getMemberRepository()).isSameAs(memberRepository);
         assertThat(orderService.getMemberRepository()).isSameAs(memberRepository);
     }
+
+    @Test
+    void configurationDeep() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
+
+        System.out.println("bean = " + bean.getClass()); //순수한 클래스라면 class hello.core.AppConfig 까지 출력되야 맞음 그러나 예상과다르게 뒤에 뭐가 더 붙음
+        //그러나 AppConfig파일에서 @Configuration을 빼면 class hello.core.AppConfig 나옴
+        //그러나 싱글톤 패턴이 깨짐
+    }
 }
